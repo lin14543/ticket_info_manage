@@ -1,2 +1,4 @@
+migrations/*
 *.pyc
 .idea/*
+*Store

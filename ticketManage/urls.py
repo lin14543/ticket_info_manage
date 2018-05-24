@@ -20,9 +20,9 @@ from ticket import views as ticket_views
 
 urlpatterns = [
     url(r'^$', ticket_views.index),
-    url(r'login/$', login, name='login'),
-    url(r'logout/$', logout),
-    url(r'home/$', ticket_views.home, name="home"),
+    # url(r'login/$', login, name='login'),
+    # url(r'logout/$', logout),
+    url(r'index/$', ticket_views.index, name="index"),
     url(r'^admin/', admin.site.urls),
 
 ]
