@@ -11,7 +11,32 @@ def index(request):
     # return HttpResponse('林次次')
     return render_to_response('index.html')
 
+
 def tables(request):
     return render_to_response('tables.html')
+
+
+def login(request):
+    return render_to_response('login.html')
+
+
+def navbar(request):
+    return render_to_response('navbar.html')
+
+
+def register(request):
+    return render_to_response('register.html')
+
+
+def charts(request):
+    return render_to_response('charts.html')
+
+
+def cards(request):
+    return render_to_response('cards.html')
+
+
+def forgot_password(request):
+    return render_to_response('forgot-password.html')
 
 # Create your views here.

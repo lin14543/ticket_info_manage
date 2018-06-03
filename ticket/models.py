@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import time
 
 # Create your models here.
 
@@ -22,22 +23,33 @@ class Tickets(models.Model):
     isChange = models.IntegerField('是否中转')
     getTime = models.IntegerField('更新时间')
     addTime = models.IntegerField('添加时间')
-    fromCity = models.CharField('出发城市', max_length=10)
-    toCity = models.CharField('到达城市', max_length=10)
+    # fromCity = models.CharField('出发城市', max_length=10)
+    # toCity = models.CharField('到达城市', max_length=10)
     segments = models.TextField('航班信息')
     site = models.CharField('站点', null=True, max_length=256)
+
+    def depDatetime(self):
+        return time.strftime('%Y-%m-%d %H:%M', time.localtime(self.depTime))
+
+    def arrDatetime(self):
+        return time.strftime('%Y-%m-%d %H:%M', time.localtime(self.depTime))
 
     def __str__(self):
         return self.flightNumber
 
     class Meta:
         verbose_name = '机票信息'
-        verbose_name_plural = '机票信息'
+        verbose_name_plural = '机票信息管理'
         ordering = ['getTime']
 
+    depDatetime.short_description = '出发时间'
+    arrDatetime.short_description = '到达时间'
+
+    dep, arr = property(depDatetime), property(arrDatetime)
+
 class Concerned(models.Model):
-    fromCity = models.CharField('出发城市', max_length=10)
-    toCity = models.CharField('到达城市', max_length=10)
+    depAirport = models.CharField('出发机场', max_length=10)
+    arrAirport = models.CharField('到达机场', max_length=10)
     user = models.ForeignKey('auth.User', blank=True, null=True, verbose_name='用户')
     startTime = models.DateTimeField('起始时间', auto_now=True)
     endTime = models.DateTimeField('结束时间', auto_now=True)
@@ -46,6 +58,6 @@ class Concerned(models.Model):
         return self.user
 
     class Meta:
-        verbose_name = '关注'
-        verbose_name_plural = '关注'
+        verbose_name = '特别关注'
+        verbose_name_plural = '特别关注管理'
 

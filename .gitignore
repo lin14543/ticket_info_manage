@@ -2,3 +2,4 @@ migrations/*
 *.pyc
 .idea/*
 *Store
+*initial*
