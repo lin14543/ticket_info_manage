@@ -62,7 +62,7 @@ def register(request):
         if password != cpassword:
             msg = '两次密码不一致，请重新输入'
             return render_to_response('register.html', locals())
-        
+
     return render_to_response('register.html')
 
 
