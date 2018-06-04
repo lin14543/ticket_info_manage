@@ -26,13 +26,15 @@ class Tickets(models.Model):
     # fromCity = models.CharField('出发城市', max_length=10)
     # toCity = models.CharField('到达城市', max_length=10)
     segments = models.TextField('航班信息')
-    site = models.CharField('站点', null=True, max_length=256)
 
     def depDatetime(self):
         return time.strftime('%Y-%m-%d %H:%M', time.localtime(self.depTime))
 
     def arrDatetime(self):
         return time.strftime('%Y-%m-%d %H:%M', time.localtime(self.depTime))
+
+    def getDatetime(self):
+        return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(self.getTime))
 
     def __str__(self):
         return self.flightNumber
