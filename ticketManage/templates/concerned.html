@@ -5,7 +5,7 @@
         <li class="breadcrumb-item">
           <a href="tables.html">Tickets</a>
         </li>
-        <li class="breadcrumb-item active">Tables</li>
+        <li class="breadcrumb-item active">Concerned Tables</li>
       </ol>
         <div class="container-fluid">
           <div class="card mb-3">
@@ -52,11 +52,7 @@
                     <td>{{ ticket.adultPrice }} / {{ ticket.currency }}</td>
                     <td>{{ ticket.maxSeats }}</td>
                     <td>{{ ticket.getDatetime }}</td>
-                    {% if not request.session.username or ticket.user.username != request.session.username %}
-                    <td><input class="btn btn-primary btn-block" type="button" value="concern" id="concerned" onclick="concern({{ ticket.id }});"></td>
-                    {% else %}
-                    <td><input class="btn btn-block" type="button"  value="concern"></td>
-                    {% endif %}
+                    <td><input class="btn btn-primary btn-block" type="button" name= "{{　ticket.id　}}" value="delete concern" onclick="delete_concern({{ ticket.id }});"></td>
                   </tr>
                  {% endfor %}
                 </tbody>
@@ -68,22 +64,22 @@
       </div>
 </div>
 <script>
-  function concern(ticket_id){
-    console.log('haha')
+  function delete_concern(ticket_id){
     $.ajax({
       type: 'POST',
-      url: '/addconcern',
+      url: '/deleteconcern',
       dataType: 'json',
       timeout: 3000,
       data: {
         "ticket_id": ticket_id
        },
       success: function(data) {
-          window.location.reload();
+          alert('aha')
+          console.log('success')
       },
       error: function(data){
           window.location.reload();
-      }
+       }
     });
   }
 

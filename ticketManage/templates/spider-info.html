@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+       <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="tables.html">Tickets</a>
+        </li>
+        <li class="breadcrumb-item active">spiderTable</li>
+      </ol>
+        <div class="container-fluid">
+          <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-table"></i> spider information:</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>host</th>
+                    <th>carrier</th>
+                    <th>num</th>
+                    <th>items/min</th>
+                    <th>last_time</th>
+                    <th>operation</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>host</th>
+                    <th>carrier</th>
+                    <th>num</th>
+                    <th>items/min</th>
+                    <th>last_time</th>
+                    <th>operation</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                {%　csrf_token %}
+                {% for spider in spiders %}
+                  <tr>
+                    <td>{{ spider.host }}</td>
+                    <td>{{ spider.carrier }}</td>
+                    <td>{{ spider.num }}</td>
+                    <td>{{ spider.permins }}</td>
+                    <td>{{ spider.last_datetime }}</td>
+                    <td><input class="btn btn-primary btn-block" type="button" name= "{{　spider　}}" value="restart" onclick="restart('{{ spider.host }}', '{{ spider.carrier }}', '{{ spider.num }}');"></td>
+                  </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated at {{ now_time }}</div>
+        </div>
+      </div>
+</div>
+<script>
+
+  function restart(host, carrier, num){
+    $.ajax({
+      type: 'POST',
+      url: '/restart-spider',
+      dataType: 'json',
+      timeout: 3000,
+      data: {
+        "host": host,
+        "carrier": carrier,
+        "num": num,
+       },
+      success: function(data) {
+          alert('success')
+      },
+      error: function(data){
+          alert('error');
+       }
+    });
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+       <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="tables.html">Tickets</a>
+        </li>
+        <li class="breadcrumb-item active">Task Table</li>
+      </ol>
+        <div class="container-fluid">
+          <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-table"></i> task information:</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <!--<th><input type="checkbox" id="checkAll" name="checkAll" /></th>-->
+                    <th>carrier</th>
+                    <th>num</th>
+                    <th>static</th>
+                    <th>update_time</th>
+                    <th>Add</th>
+                    <th>Pause</th>
+                    <th>Resume</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <!--<td><input type="checkbox" name="checkItem" /></td>-->
+                    <th>carrier</th>
+                    <th>num</th>
+                    <th>static</th>
+                    <th>update_time</th>
+                    <th>Add</th>
+                    <th>Pause</th>
+                    <th>Resume</th>
+                    <th>Remove</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                {% csrf_token %}
+                {% for task in tasks %}
+                  <tr>
+                    <!--<td><input type="checkbox" name="checkItem" value="{{ host.id }}" /></td>-->
+                    <td>{{ task.carrier }}</td>
+                    <td>{{ task.num }}</td>
+                    <td>{{ task.static_str }}</td>
+                    <td>{{ task.update_datetime }}</td>
+                    {% if task.static == 2 %}
+                    <td><input class="btn btn-primary btn-block" type="button" value="add" id="add" onclick="operate_task('{{ task.carrier }}', 'addjob');"></td>
+                    {% else %}
+                    <td><input class="btn btn-block" type="button" value="add"></td>
+                    {% endif %}
+                    {% if not task.static %}
+                    <td><input class="btn btn-primary btn-block" type="button" value="pause" id="pause" onclick="operate_task('{{ task.carrier }}', 'pause');"></td>
+                    {% else %}
+                    <td><input class="btn btn-block" type="button" value="pause"></td>
+                    {% endif %}
+                    {% if task.static == 1 %}
+                    <td><input class="btn btn-primary btn-block" type="button" value="resume" id="resume" onclick="operate_task('{{ task.carrier }}', 'resume');"></td>
+                    {% else %}
+                    <td><input class="btn btn-block" type="button" value="resume"></td>
+                    {% endif %}
+                    {% if task.static != 2 %}
+                    <td><input class="btn btn-primary btn-block" type="button" value="remove" id="remove" onclick="operate_task('{{ task.carrier }}', 'removetask');"></td>
+                    {% else %}
+                    <td><input class="btn btn-block" type="button" value="remove"></td>
+                    {% endif %}
+                  </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated at {{ now_time }}</div>
+        </div>
+      </div>
+</div>
+<script>
+
+  function operate_task(carrier, operation){
+    $.ajax({
+      type: 'POST',
+      url: '/addtask',
+      dataType: 'json',
+      timeout: 3000,
+      data: {
+        "carrier": carrier,
+        "operation": operation
+       },
+      success: function(data) {
+          window.location.reload();
+      },
+      error: function(data){
+          window.location.reload();
+       }
+    });
+  }
+</script>
+{% endblock %}

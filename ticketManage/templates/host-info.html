@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+       <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="tables.html">Tickets</a>
+        </li>
+        <li class="breadcrumb-item active">Host Table</li>
+      </ol>
+        <div class="container-fluid">
+          <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-table"></i> host information:</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <!--<th><input type="checkbox" id="checkAll" name="checkAll" /></th>-->
+                    <th>host</th>
+                    <th>mem_total</th>
+                    <th>mem_free</th>
+                    <th>mem_available</th>
+                    <th>model</th>
+                    <th>cpu_MHz</th>
+                    <th>update_time</th>
+                    <th>update</th>
+                    <th>reboot</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <!--<td><input type="checkbox" name="checkItem" /></td>-->
+                    <th>host</th>
+                    <th>mem_total</th>
+                    <th>mem_free</th>
+                    <th>mem_available</th>
+                    <th>model</th>
+                    <th>cpu_MHz</th>
+                    <th>update_time</th>
+                    <th>update</th>
+                    <th>reboot</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                {% for host in hosts %}
+                  <tr>
+                    <!--<td><input type="checkbox" name="checkItem" value="{{ host.id }}" /></td>-->
+                    <td>{{ host.host_name }}</td>
+                    <td>{{ host.mem_total }}</td>
+                    <td>{{ host.mem_free }}</td>
+                    <td>{{ host.mem_available }}</td>
+                    <td>{{ host.model }}</td>
+                    <td>{{ host.cpu_Mhz }}</td>
+                    <td>{{ host.update_datetime }}</td>
+                    <td><input class="btn btn-primary btn-block" type="button" value="update" onclick="operate_host('{{ host.host_name }}', 'update');"></td>
+                    <td><input class="btn btn-primary btn-block" type="button" value="reboot" onclick="operate_host('{{ host.host_name }}', 'reboot');"></td>
+                  </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated at {{ now_time }}</div>
+        </div>
+      </div>
+</div>
+<script>
+
+  function operate_host(host, operation){
+    $.ajax({
+      type: 'POST',
+      url: '/operatehost',
+      dataType: 'json',
+      timeout: 3000,
+      data: {
+        "host": host,
+        "operation": operation,
+       },
+      success: function(data) {
+          alert('success');
+      },
+      error: function(data){
+       }
+    });
+  }
+</script>
+{% endblock %}

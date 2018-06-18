@@ -1,4 +1,4 @@
-migrations/*
+ticket/migrations/*
 *.pyc
 .idea/*
 *Store

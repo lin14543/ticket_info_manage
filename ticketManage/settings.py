@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+TASK_STATIC = ['Runing', 'Pause', 'Not Added']
+
+HOST_KEY = {
+    'reboot': 'reboot',
+    'update': 'git pull',
+}
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,6 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ticket',
 ]
+
+GET_SPIDER_URL = 'http://127.0.0.1:5000/getspiders'
+GET_STATIC_URL = 'http://127.0.0.1:5000/getstatic'
+ADD_TASK_URL = 'http://127.0.0.1:5000/addjob'
+BASE_API_URL = 'http://127.0.0.1:5000'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,6 +129,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
+
 TIME_ZONE = 'Asia/Shanghai'
 
 

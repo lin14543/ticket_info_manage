@@ -15,6 +15,9 @@ class TicketsAdmin(admin.ModelAdmin):
     search_fields = ['flightNumber', 'depAirport', 'arrAirport']
     list_filter = ('currency', )
 
+class ConcernedAdmin(admin.ModelAdmin):
+    list_display = ['dep']
+
 
 admin.site.site_header = '航班信息后台管理'
 admin.site.site_title = 'Tickets'

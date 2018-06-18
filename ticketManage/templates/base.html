@@ -32,75 +32,50 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="tables">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Tables</span>
+            <span class="nav-link-text">Tickets Table</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="index.html">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="concerned">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">Concerned Table</span>
           </a>
         </li>
+        {% if request.user.is_authenticated and request.user.is_staff %}
+        <!--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">-->
+          <!--<a class="nav-link" href="index">-->
+            <!--<i class="fa fa-fw fa-dashboard"></i>-->
+            <!--<span class="nav-link-text">Example</span>-->
+          <!--</a>-->
+        <!--</li>-->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+          <a class="nav-link" href="charts">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Charts</span>
           </a>
         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="task-info">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">Task Info</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="host-info">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">Host Info</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="spider-info">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">Spider Info</span>
+          </a>
+        </li>
+        {% endif %}
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-wrench"></i>
-            <span class="nav-link-text">Components</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <li>
-              <a href="navbar.html">Navbar</a>
-            </li>
-            <li>
-              <a href="cards.html">Cards</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-sitemap"></i>
-            <span class="nav-link-text">Menu Levels</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseMulti">
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-              <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-          <a class="nav-link" href="#">
-            <i class="fa fa-fw fa-link"></i>
-            <span class="nav-link-text">Link</span>
-          </a>
-        </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -173,6 +148,24 @@
     <!-- Custom scripts for this page-->
     <script src="/static/js/sb-admin-datatables.min.js"></script>
     <script src="/static/js/sb-admin-charts.min.js"></script>
+    <script>
+      $(function () {
+          $.ajaxSetup({
+              headers: { "X-CSRFToken": getCookie("csrftoken") }
+          });
+      });
+
+      function getCookie(name)
+      {
+          var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+          if(arr=document.cookie.match(reg))
+
+              return unescape(arr[2]);
+          else
+              return null;
+      }
+    </script>
   </div>
 </body>
 
