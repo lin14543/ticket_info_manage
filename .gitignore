@@ -1,3 +1,4 @@
+ticketManage.py/settings.py
 ticket/migrations/*
 *.pyc
 .idea/*
